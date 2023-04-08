@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="miniBankaOtomasyonuDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="hesap">
+          <Key>
+            <PropertyRef Name="hesapID" />
+          </Key>
+          <Property Name="hesapID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ibanNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="hesapNo" Type="varchar" MaxLength="50" />
+          <Property Name="hesapPara" Type="int" Nullable="false" />
+          <Property Name="musteriNo" Type="varchar" MaxLength="50" />
+          <Property Name="hesapOlusturmaTarihi" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="hesapDefteri">
+          <Key>
+            <PropertyRef Name="hesapDefteriNo" />
+          </Key>
+          <Property Name="hesapDefteriNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hesapTutari" Type="int" />
+          <Property Name="hesapTutarGirisi" Type="char" MaxLength="10" />
+          <Property Name="hesapDefteriTarih" Type="nvarchar" MaxLength="50" />
+          <Property Name="hesapId" Type="int" />
+        </EntityType>
+        <EntityType Name="krediKarti">
+          <Key>
+            <PropertyRef Name="krediKartiID" />
+          </Key>
+          <Property Name="krediKartiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="krediKartiNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="krediKartiLimit" Type="int" />
+          <Property Name="krediKartıHarcanananTutar" Type="int" />
+          <Property Name="krediKartiKalanTutar" Type="int" />
+          <Property Name="musteriNo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="krediKartiHarcanan">
+          <Key>
+            <PropertyRef Name="krediKartiHarcamaNo" />
+          </Key>
+          <Property Name="krediKartiHarcamaNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="krediKartiHarccananTutar" Type="nchar" MaxLength="10" />
+          <Property Name="krediKartiNo" Type="int" />
+          <Property Name="Kategori" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="kullanici">
+          <Key>
+            <PropertyRef Name="kullaniciNo" />
+          </Key>
+          <Property Name="kullaniciNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kullaniciAd" Type="nvarchar" MaxLength="50" />
+          <Property Name="kullaniciSoyad" Type="nvarchar" MaxLength="50" />
+          <Property Name="dogumyili" Type="nvarchar" MaxLength="50" />
+          <Property Name="kullaniciAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="kullaniciSifre" Type="nvarchar" MaxLength="50" />
+          <Property Name="kullaniciMail" Type="nvarchar" MaxLength="50" />
+          <Property Name="kullaniciAktifMi" Type="bit" />
+          <Property Name="kullaniciTc" Type="nvarchar" MaxLength="50" />
+          <Property Name="kullaniciRol" Type="int" />
+        </EntityType>
+        <EntityType Name="kullanicRol">
+          <Key>
+            <PropertyRef Name="kullaniciRolNo" />
+          </Key>
+          <Property Name="kullaniciRolNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kullaniciRolAdi" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="musteri">
+          <Key>
+            <PropertyRef Name="musteriTc" />
+          </Key>
+          <Property Name="musteriTc" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="musteriAd" Type="nvarchar" MaxLength="50" />
+          <Property Name="musteriSoyad" Type="nvarchar" MaxLength="50" />
+          <Property Name="musteriDogum" Type="nvarchar" MaxLength="50" />
+          <Property Name="musteriMail" Type="nvarchar" MaxLength="50" />
+          <Property Name="musteriCinsiyet" Type="nvarchar" MaxLength="10" />
+          <Property Name="musteriAktifMi" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_hesap_musteri">
+          <End Role="musteri" Type="Self.musteri" Multiplicity="0..1" />
+          <End Role="hesap" Type="Self.hesap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="musteri">
+              <PropertyRef Name="musteriTc" />
+            </Principal>
+            <Dependent Role="hesap">
+              <PropertyRef Name="musteriNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_hesapDefteri_hesap">
+          <End Role="hesap" Type="Self.hesap" Multiplicity="0..1" />
+          <End Role="hesapDefteri" Type="Self.hesapDefteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hesap">
+              <PropertyRef Name="hesapID" />
+            </Principal>
+            <Dependent Role="hesapDefteri">
+              <PropertyRef Name="hesapId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_krediKarti_krediKarti">
+          <End Role="musteri" Type="Self.musteri" Multiplicity="0..1" />
+          <End Role="krediKarti" Type="Self.krediKarti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="musteri">
+              <PropertyRef Name="musteriTc" />
+            </Principal>
+            <Dependent Role="krediKarti">
+              <PropertyRef Name="musteriNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_kullanici_kullanicRol">
+          <End Role="kullanicRol" Type="Self.kullanicRol" Multiplicity="0..1" />
+          <End Role="kullanici" Type="Self.kullanici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanicRol">
+              <PropertyRef Name="kullaniciRolNo" />
+            </Principal>
+            <Dependent Role="kullanici">
+              <PropertyRef Name="kullaniciRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="miniBankaOtomasyonuDBModelStoreContainer">
+          <EntitySet Name="hesap" EntityType="Self.hesap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hesapDefteri" EntityType="Self.hesapDefteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="krediKarti" EntityType="Self.krediKarti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="krediKartiHarcanan" EntityType="Self.krediKartiHarcanan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kullanici" EntityType="Self.kullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kullanicRol" EntityType="Self.kullanicRol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="musteri" EntityType="Self.musteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_hesap_musteri" Association="Self.FK_hesap_musteri">
+            <End Role="musteri" EntitySet="musteri" />
+            <End Role="hesap" EntitySet="hesap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_hesapDefteri_hesap" Association="Self.FK_hesapDefteri_hesap">
+            <End Role="hesap" EntitySet="hesap" />
+            <End Role="hesapDefteri" EntitySet="hesapDefteri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_krediKarti_krediKarti" Association="Self.FK_krediKarti_krediKarti">
+            <End Role="musteri" EntitySet="musteri" />
+            <End Role="krediKarti" EntitySet="krediKarti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_kullanici_kullanicRol" Association="Self.FK_kullanici_kullanicRol">
+            <End Role="kullanicRol" EntitySet="kullanicRol" />
+            <End Role="kullanici" EntitySet="kullanici" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="miniBankaOtomasyonuDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="hesap">
+          <Key>
+            <PropertyRef Name="hesapID" />
+          </Key>
+          <Property Name="hesapID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ibanNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="hesapNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hesapPara" Type="Int32" Nullable="false" />
+          <Property Name="musteriNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hesapOlusturmaTarihi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="musteri" Relationship="Self.FK_hesap_musteri" FromRole="hesap" ToRole="musteri" />
+          <NavigationProperty Name="hesapDefteri" Relationship="Self.FK_hesapDefteri_hesap" FromRole="hesap" ToRole="hesapDefteri" />
+        </EntityType>
+        <EntityType Name="hesapDefteri">
+          <Key>
+            <PropertyRef Name="hesapDefteriNo" />
+          </Key>
+          <Property Name="hesapDefteriNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hesapTutari" Type="Int32" />
+          <Property Name="hesapTutarGirisi" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="hesapDefteriTarih" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hesapId" Type="Int32" />
+          <NavigationProperty Name="hesap" Relationship="Self.FK_hesapDefteri_hesap" FromRole="hesapDefteri" ToRole="hesap" />
+        </EntityType>
+        <EntityType Name="krediKarti">
+          <Key>
+            <PropertyRef Name="krediKartiID" />
+          </Key>
+          <Property Name="krediKartiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="krediKartiNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="krediKartiLimit" Type="Int32" />
+          <Property Name="krediKartıHarcanananTutar" Type="Int32" />
+          <Property Name="krediKartiKalanTutar" Type="Int32" />
+          <Property Name="musteriNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="musteri" Relationship="Self.FK_krediKarti_krediKarti" FromRole="krediKarti" ToRole="musteri" />
+        </EntityType>
+        <EntityType Name="krediKartiHarcanan">
+          <Key>
+            <PropertyRef Name="krediKartiHarcamaNo" />
+          </Key>
+          <Property Name="krediKartiHarcamaNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="krediKartiHarccananTutar" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="krediKartiNo" Type="Int32" />
+          <Property Name="Kategori" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="kullanici">
+          <Key>
+            <PropertyRef Name="kullaniciNo" />
+          </Key>
+          <Property Name="kullaniciNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kullaniciAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kullaniciSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dogumyili" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kullaniciSifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kullaniciMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kullaniciAktifMi" Type="Boolean" />
+          <Property Name="kullaniciTc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kullaniciRol" Type="Int32" />
+          <NavigationProperty Name="kullanicRol" Relationship="Self.FK_kullanici_kullanicRol" FromRole="kullanici" ToRole="kullanicRol" />
+        </EntityType>
+        <EntityType Name="kullanicRol">
+          <Key>
+            <PropertyRef Name="kullaniciRolNo" />
+          </Key>
+          <Property Name="kullaniciRolNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kullaniciRolAdi" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="kullanici" Relationship="Self.FK_kullanici_kullanicRol" FromRole="kullanicRol" ToRole="kullanici" />
+        </EntityType>
+        <EntityType Name="musteri">
+          <Key>
+            <PropertyRef Name="musteriTc" />
+          </Key>
+          <Property Name="musteriTc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="musteriAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="musteriSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="musteriDogum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="musteriMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="musteriCinsiyet" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="musteriAktifMi" Type="Boolean" />
+          <NavigationProperty Name="hesap" Relationship="Self.FK_hesap_musteri" FromRole="musteri" ToRole="hesap" />
+          <NavigationProperty Name="krediKarti" Relationship="Self.FK_krediKarti_krediKarti" FromRole="musteri" ToRole="krediKarti" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_hesap_musteri">
+          <End Role="musteri" Type="Self.musteri" Multiplicity="0..1" />
+          <End Role="hesap" Type="Self.hesap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="musteri">
+              <PropertyRef Name="musteriTc" />
+            </Principal>
+            <Dependent Role="hesap">
+              <PropertyRef Name="musteriNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_hesapDefteri_hesap">
+          <End Role="hesap" Type="Self.hesap" Multiplicity="0..1" />
+          <End Role="hesapDefteri" Type="Self.hesapDefteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hesap">
+              <PropertyRef Name="hesapID" />
+            </Principal>
+            <Dependent Role="hesapDefteri">
+              <PropertyRef Name="hesapId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_krediKarti_krediKarti">
+          <End Role="musteri" Type="Self.musteri" Multiplicity="0..1" />
+          <End Role="krediKarti" Type="Self.krediKarti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="musteri">
+              <PropertyRef Name="musteriTc" />
+            </Principal>
+            <Dependent Role="krediKarti">
+              <PropertyRef Name="musteriNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_kullanici_kullanicRol">
+          <End Role="kullanicRol" Type="Self.kullanicRol" Multiplicity="0..1" />
+          <End Role="kullanici" Type="Self.kullanici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanicRol">
+              <PropertyRef Name="kullaniciRolNo" />
+            </Principal>
+            <Dependent Role="kullanici">
+              <PropertyRef Name="kullaniciRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="miniBankaOtomasyonuDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="hesap" EntityType="Self.hesap" />
+          <EntitySet Name="hesapDefteri" EntityType="Self.hesapDefteri" />
+          <EntitySet Name="krediKarti" EntityType="Self.krediKarti" />
+          <EntitySet Name="krediKartiHarcanan" EntityType="Self.krediKartiHarcanan" />
+          <EntitySet Name="kullanici" EntityType="Self.kullanici" />
+          <EntitySet Name="kullanicRol" EntityType="Self.kullanicRol" />
+          <EntitySet Name="musteri" EntityType="Self.musteri" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_hesap_musteri" Association="Self.FK_hesap_musteri">
+            <End Role="musteri" EntitySet="musteri" />
+            <End Role="hesap" EntitySet="hesap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_hesapDefteri_hesap" Association="Self.FK_hesapDefteri_hesap">
+            <End Role="hesap" EntitySet="hesap" />
+            <End Role="hesapDefteri" EntitySet="hesapDefteri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_krediKarti_krediKarti" Association="Self.FK_krediKarti_krediKarti">
+            <End Role="musteri" EntitySet="musteri" />
+            <End Role="krediKarti" EntitySet="krediKarti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_kullanici_kullanicRol" Association="Self.FK_kullanici_kullanicRol">
+            <End Role="kullanicRol" EntitySet="kullanicRol" />
+            <End Role="kullanici" EntitySet="kullanici" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="miniBankaOtomasyonuDBModelStoreContainer" CdmEntityContainer="miniBankaOtomasyonuDBEntities">
+          <EntitySetMapping Name="hesap">
+            <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.hesap">
+              <MappingFragment StoreEntitySet="hesap">
+                <ScalarProperty Name="hesapID" ColumnName="hesapID" />
+                <ScalarProperty Name="ibanNo" ColumnName="ibanNo" />
+                <ScalarProperty Name="hesapNo" ColumnName="hesapNo" />
+                <ScalarProperty Name="hesapPara" ColumnName="hesapPara" />
+                <ScalarProperty Name="musteriNo" ColumnName="musteriNo" />
+                <ScalarProperty Name="hesapOlusturmaTarihi" ColumnName="hesapOlusturmaTarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hesapDefteri">
+            <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.hesapDefteri">
+              <MappingFragment StoreEntitySet="hesapDefteri">
+                <ScalarProperty Name="hesapDefteriNo" ColumnName="hesapDefteriNo" />
+                <ScalarProperty Name="hesapTutari" ColumnName="hesapTutari" />
+                <ScalarProperty Name="hesapTutarGirisi" ColumnName="hesapTutarGirisi" />
+                <ScalarProperty Name="hesapDefteriTarih" ColumnName="hesapDefteriTarih" />
+                <ScalarProperty Name="hesapId" ColumnName="hesapId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="krediKarti">
+            <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.krediKarti">
+              <MappingFragment StoreEntitySet="krediKarti">
+                <ScalarProperty Name="krediKartiID" ColumnName="krediKartiID" />
+                <ScalarProperty Name="krediKartiNo" ColumnName="krediKartiNo" />
+                <ScalarProperty Name="krediKartiLimit" ColumnName="krediKartiLimit" />
+                <ScalarProperty Name="krediKartıHarcanananTutar" ColumnName="krediKartıHarcanananTutar" />
+                <ScalarProperty Name="krediKartiKalanTutar" ColumnName="krediKartiKalanTutar" />
+                <ScalarProperty Name="musteriNo" ColumnName="musteriNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="krediKartiHarcanan">
+            <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.krediKartiHarcanan">
+              <MappingFragment StoreEntitySet="krediKartiHarcanan">
+                <ScalarProperty Name="krediKartiHarcamaNo" ColumnName="krediKartiHarcamaNo" />
+                <ScalarProperty Name="krediKartiHarccananTutar" ColumnName="krediKartiHarccananTutar" />
+                <ScalarProperty Name="krediKartiNo" ColumnName="krediKartiNo" />
+                <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kullanici">
+            <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.kullanici">
+              <MappingFragment StoreEntitySet="kullanici">
+                <ScalarProperty Name="kullaniciNo" ColumnName="kullaniciNo" />
+                <ScalarProperty Name="kullaniciAd" ColumnName="kullaniciAd" />
+                <ScalarProperty Name="kullaniciSoyad" ColumnName="kullaniciSoyad" />
+                <ScalarProperty Name="dogumyili" ColumnName="dogumyili" />
+                <ScalarProperty Name="kullaniciAdi" ColumnName="kullaniciAdi" />
+                <ScalarProperty Name="kullaniciSifre" ColumnName="kullaniciSifre" />
+                <ScalarProperty Name="kullaniciMail" ColumnName="kullaniciMail" />
+                <ScalarProperty Name="kullaniciAktifMi" ColumnName="kullaniciAktifMi" />
+                <ScalarProperty Name="kullaniciTc" ColumnName="kullaniciTc" />
+                <ScalarProperty Name="kullaniciRol" ColumnName="kullaniciRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kullanicRol">
+            <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.kullanicRol">
+              <MappingFragment StoreEntitySet="kullanicRol">
+                <ScalarProperty Name="kullaniciRolNo" ColumnName="kullaniciRolNo" />
+                <ScalarProperty Name="kullaniciRolAdi" ColumnName="kullaniciRolAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="musteri">
+            <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.musteri">
+              <MappingFragment StoreEntitySet="musteri">
+                <ScalarProperty Name="musteriTc" ColumnName="musteriTc" />
+                <ScalarProperty Name="musteriAd" ColumnName="musteriAd" />
+                <ScalarProperty Name="musteriSoyad" ColumnName="musteriSoyad" />
+                <ScalarProperty Name="musteriDogum" ColumnName="musteriDogum" />
+                <ScalarProperty Name="musteriMail" ColumnName="musteriMail" />
+                <ScalarProperty Name="musteriCinsiyet" ColumnName="musteriCinsiyet" />
+                <ScalarProperty Name="musteriAktifMi" ColumnName="musteriAktifMi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

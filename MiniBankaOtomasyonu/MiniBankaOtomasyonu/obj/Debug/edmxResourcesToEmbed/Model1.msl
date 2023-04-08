@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="miniBankaOtomasyonuDBModelStoreContainer" CdmEntityContainer="miniBankaOtomasyonuDBEntities">
+    <EntitySetMapping Name="hesap">
+      <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.hesap">
+        <MappingFragment StoreEntitySet="hesap">
+          <ScalarProperty Name="hesapID" ColumnName="hesapID" />
+          <ScalarProperty Name="ibanNo" ColumnName="ibanNo" />
+          <ScalarProperty Name="hesapNo" ColumnName="hesapNo" />
+          <ScalarProperty Name="hesapPara" ColumnName="hesapPara" />
+          <ScalarProperty Name="musteriNo" ColumnName="musteriNo" />
+          <ScalarProperty Name="hesapOlusturmaTarihi" ColumnName="hesapOlusturmaTarihi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hesapDefteri">
+      <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.hesapDefteri">
+        <MappingFragment StoreEntitySet="hesapDefteri">
+          <ScalarProperty Name="hesapDefteriNo" ColumnName="hesapDefteriNo" />
+          <ScalarProperty Name="hesapTutari" ColumnName="hesapTutari" />
+          <ScalarProperty Name="hesapTutarGirisi" ColumnName="hesapTutarGirisi" />
+          <ScalarProperty Name="hesapDefteriTarih" ColumnName="hesapDefteriTarih" />
+          <ScalarProperty Name="hesapId" ColumnName="hesapId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="krediKarti">
+      <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.krediKarti">
+        <MappingFragment StoreEntitySet="krediKarti">
+          <ScalarProperty Name="krediKartiID" ColumnName="krediKartiID" />
+          <ScalarProperty Name="krediKartiNo" ColumnName="krediKartiNo" />
+          <ScalarProperty Name="krediKartiLimit" ColumnName="krediKartiLimit" />
+          <ScalarProperty Name="krediKartıHarcanananTutar" ColumnName="krediKartıHarcanananTutar" />
+          <ScalarProperty Name="krediKartiKalanTutar" ColumnName="krediKartiKalanTutar" />
+          <ScalarProperty Name="musteriNo" ColumnName="musteriNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="krediKartiHarcanan">
+      <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.krediKartiHarcanan">
+        <MappingFragment StoreEntitySet="krediKartiHarcanan">
+          <ScalarProperty Name="krediKartiHarcamaNo" ColumnName="krediKartiHarcamaNo" />
+          <ScalarProperty Name="krediKartiHarccananTutar" ColumnName="krediKartiHarccananTutar" />
+          <ScalarProperty Name="krediKartiNo" ColumnName="krediKartiNo" />
+          <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="kullanici">
+      <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.kullanici">
+        <MappingFragment StoreEntitySet="kullanici">
+          <ScalarProperty Name="kullaniciNo" ColumnName="kullaniciNo" />
+          <ScalarProperty Name="kullaniciAd" ColumnName="kullaniciAd" />
+          <ScalarProperty Name="kullaniciSoyad" ColumnName="kullaniciSoyad" />
+          <ScalarProperty Name="dogumyili" ColumnName="dogumyili" />
+          <ScalarProperty Name="kullaniciAdi" ColumnName="kullaniciAdi" />
+          <ScalarProperty Name="kullaniciSifre" ColumnName="kullaniciSifre" />
+          <ScalarProperty Name="kullaniciMail" ColumnName="kullaniciMail" />
+          <ScalarProperty Name="kullaniciAktifMi" ColumnName="kullaniciAktifMi" />
+          <ScalarProperty Name="kullaniciTc" ColumnName="kullaniciTc" />
+          <ScalarProperty Name="kullaniciRol" ColumnName="kullaniciRol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="kullanicRol">
+      <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.kullanicRol">
+        <MappingFragment StoreEntitySet="kullanicRol">
+          <ScalarProperty Name="kullaniciRolNo" ColumnName="kullaniciRolNo" />
+          <ScalarProperty Name="kullaniciRolAdi" ColumnName="kullaniciRolAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="musteri">
+      <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.musteri">
+        <MappingFragment StoreEntitySet="musteri">
+          <ScalarProperty Name="musteriTc" ColumnName="musteriTc" />
+          <ScalarProperty Name="musteriAd" ColumnName="musteriAd" />
+          <ScalarProperty Name="musteriSoyad" ColumnName="musteriSoyad" />
+          <ScalarProperty Name="musteriDogum" ColumnName="musteriDogum" />
+          <ScalarProperty Name="musteriMail" ColumnName="musteriMail" />
+          <ScalarProperty Name="musteriCinsiyet" ColumnName="musteriCinsiyet" />
+          <ScalarProperty Name="musteriAktifMi" ColumnName="musteriAktifMi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="miniBankaOtomasyonuDBModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
